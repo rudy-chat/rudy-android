@@ -1579,10 +1579,22 @@ else()
 endif()
 
 #voipandroid
+# Rudy: the tgcalls submodule hardcodes the upstream Java package in its JNI symbols and
+# FindClass() lookups. Generate copies with the package rewritten instead of forking it.
+set(RUDY_TGCALLS_ANDROID_DIR ${CMAKE_CURRENT_BINARY_DIR}/rudy_tgcalls_android)
+foreach(RUDY_SRC VideoCameraCapturer.cpp AndroidContext.cpp)
+    set(RUDY_IN ${CMAKE_CURRENT_SOURCE_DIR}/tgcalls/tgcalls/platform/android/${RUDY_SRC})
+    set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS ${RUDY_IN})
+    file(READ ${RUDY_IN} RUDY_CONTENT)
+    string(REPLACE "Java_org_telegram_" "Java_org_rudy_chat_" RUDY_CONTENT "${RUDY_CONTENT}")
+    string(REPLACE "org/telegram/" "org/rudy/chat/" RUDY_CONTENT "${RUDY_CONTENT}")
+    file(WRITE ${RUDY_TGCALLS_ANDROID_DIR}/${RUDY_SRC} "${RUDY_CONTENT}")
+endforeach()
+
 add_library(voipandroid STATIC
         tgcalls/tgcalls/platform/android/AndroidInterface.cpp
-        tgcalls/tgcalls/platform/android/VideoCameraCapturer.cpp
-        tgcalls/tgcalls/platform/android/AndroidContext.cpp
+        ${RUDY_TGCALLS_ANDROID_DIR}/VideoCameraCapturer.cpp
+        ${RUDY_TGCALLS_ANDROID_DIR}/AndroidContext.cpp
         tgcalls/tgcalls/platform/android/VideoCapturerInterfaceImpl.cpp
         voip/webrtc/modules/audio_device/android/audio_manager.cc
         voip/webrtc/modules/audio_device/android/audio_record_jni.cc
@@ -1681,7 +1693,7 @@ add_library(voipandroid STATIC
         voip/webrtc/sdk/android/src/jni/video_encoder_wrapper.cc
         voip/webrtc/sdk/android/src/jni/timestamp_aligner.cc
         voip/webrtc/sdk/android/src/jni/nv12_buffer.cc
-        voip/org_telegram_messenger_voip_Instance.cpp
+        voip/org_rudy_chat_messenger_voip_Instance.cpp
 )
 target_compile_options(voipandroid PUBLIC
         -Wall -finline-functions -ffast-math -fexceptions)
@@ -1691,6 +1703,7 @@ target_compile_definitions(voipandroid PUBLIC
         WEBRTC_HAVE_DCSCTP RTC_DISABLE_TRACE_EVENTS WEBRTC_OPUS_SUPPORT_120MS_PTIME=1 BWE_TEST_LOGGING_COMPILE_TIME_ENABLE=0 ABSL_ALLOCATOR_NOTHROW=1 WEBRTC_NS_FLOAT HAVE_PTHREAD RTC_ENABLE_VP9 RTC_ENABLE_H265 WEBRTC_POSIX WEBRTC_LINUX WEBRTC_ANDROID WEBRTC_USE_H264 NDEBUG WEBRTC_HAVE_USRSCTP WEBRTC_HAVE_SCTP WEBRTC_APM_DEBUG_DUMP=0 WEBRTC_USE_BUILTIN_ISAC_FLOAT WEBRTC_OPUS_VARIABLE_COMPLEXITY=0 HAVE_NETINET_IN_H WEBRTC_INCLUDE_INTERNAL_AUDIO_DEVICE HAVE_WEBRTC_VIDEO)
 target_include_directories(voipandroid PUBLIC
         ./
+        tgcalls/tgcalls/platform/android
         voip
         tgcalls
         tgcalls/tgcalls

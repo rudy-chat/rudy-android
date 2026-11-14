@@ -1097,7 +1097,7 @@ std::shared_ptr<twidget::SandboxResources> resources(const std::string &path) {
 
 // The bundles as bytes under `key`, which create then takes as its directory: the isolated process
 // (WidgetEngineService) reads them from the APK's assets and has no files of its own to put them in.
-extern "C" JNIEXPORT void JNICALL Java_org_telegram_utils_twidget_WidgetSandboxNative_registerResources(
+extern "C" JNIEXPORT void JNICALL Java_org_rudy_chat_utils_twidget_WidgetSandboxNative_registerResources(
     JNIEnv *e, jclass, jbyteArray key, jbyteArray sandbox, jbyteArray validator, jbyteArray renderer,
     jbyteArray sandboxBytecode, jbyteArray validatorBytecode) {
     auto value = std::make_shared<twidget::SandboxResources>();
@@ -1114,7 +1114,7 @@ extern "C" JNIEXPORT void JNICALL Java_org_telegram_utils_twidget_WidgetSandboxN
     resourceCache[bytes(e, key)] = std::move(value);
 }
 
-extern "C" JNIEXPORT jlong JNICALL Java_org_telegram_utils_twidget_WidgetSandboxNative_create(
+extern "C" JNIEXPORT jlong JNICALL Java_org_rudy_chat_utils_twidget_WidgetSandboxNative_create(
     JNIEnv *e, jclass, jbyteArray path, jbyteArray html, jbyteArray theme, jfloat width, jfloat dpr,
     jint cpuMultiplier, jbyteArray locale, jbyteArray storage, jbyteArray sdk, jbyteArray stoppedLabel,
     jboolean visible, jobject backend) {
@@ -1297,7 +1297,7 @@ extern "C" JNIEXPORT jlong JNICALL Java_org_telegram_utils_twidget_WidgetSandbox
         return 0;
     }
 }
-extern "C" JNIEXPORT void JNICALL Java_org_telegram_utils_twidget_WidgetSandboxNative_destroy(JNIEnv *,
+extern "C" JNIEXPORT void JNICALL Java_org_rudy_chat_utils_twidget_WidgetSandboxNative_destroy(JNIEnv *,
                                                                                               jclass,
                                                                                               jlong id) {
     std::shared_ptr<Session> session;
@@ -1312,12 +1312,12 @@ extern "C" JNIEXPORT void JNICALL Java_org_telegram_utils_twidget_WidgetSandboxN
     session->shutdown();
 }
 extern "C" JNIEXPORT void JNICALL
-Java_org_telegram_utils_twidget_WidgetSandboxNative_visible(JNIEnv *, jclass, jlong id, jboolean visible) {
+Java_org_rudy_chat_utils_twidget_WidgetSandboxNative_visible(JNIEnv *, jclass, jlong id, jboolean visible) {
     auto s = get(id);
     if (s)
         s->input([owner = s.get(), visible](auto &) { owner->host->setVisible(visible); });
 }
-extern "C" JNIEXPORT void JNICALL Java_org_telegram_utils_twidget_WidgetSandboxNative_theme(JNIEnv *e, jclass,
+extern "C" JNIEXPORT void JNICALL Java_org_rudy_chat_utils_twidget_WidgetSandboxNative_theme(JNIEnv *e, jclass,
                                                                                             jlong id,
                                                                                             jbyteArray theme) {
     auto s = get(id);
@@ -1326,7 +1326,7 @@ extern "C" JNIEXPORT void JNICALL Java_org_telegram_utils_twidget_WidgetSandboxN
 }
 // What the client draws over the widget changed with the bubble's layout (docs/sdk-v1.md §2.17): the full area, as
 // `contentSafeArea` of the sdk JSON. Never per frame.
-extern "C" JNIEXPORT void JNICALL Java_org_telegram_utils_twidget_WidgetSandboxNative_safeArea(JNIEnv *e, jclass,
+extern "C" JNIEXPORT void JNICALL Java_org_rudy_chat_utils_twidget_WidgetSandboxNative_safeArea(JNIEnv *e, jclass,
                                                                                                jlong id,
                                                                                                jbyteArray area) {
     auto s = get(id);
@@ -1337,7 +1337,7 @@ extern "C" JNIEXPORT void JNICALL Java_org_telegram_utils_twidget_WidgetSandboxN
         s->input([owner = s.get(), inset = parseSafeArea(*value)](auto &) { owner->host->setContentSafeArea(inset); });
 }
 // The widget's state changed (updateMessageWidgetData, a polled public_data): the full state, `data` of the sdk JSON.
-extern "C" JNIEXPORT void JNICALL Java_org_telegram_utils_twidget_WidgetSandboxNative_data(JNIEnv *e, jclass,
+extern "C" JNIEXPORT void JNICALL Java_org_rudy_chat_utils_twidget_WidgetSandboxNative_data(JNIEnv *e, jclass,
                                                                                            jlong id,
                                                                                            jbyteArray data) {
     auto s = get(id);
@@ -1350,7 +1350,7 @@ extern "C" JNIEXPORT void JNICALL Java_org_telegram_utils_twidget_WidgetSandboxN
 // The client's answer to request or wallet call `request` (signal 12, 19): `failure` 0 answered (`result`, null for
 // none), 1 timeout, 2 rate limited, 3 failed; a wallet call's also 4 rejected (the user declined), 5 bad request (the
 // wallet refused it). Once; an unknown or answered id is ignored.
-extern "C" JNIEXPORT void JNICALL Java_org_telegram_utils_twidget_WidgetSandboxNative_answerRequest(
+extern "C" JNIEXPORT void JNICALL Java_org_rudy_chat_utils_twidget_WidgetSandboxNative_answerRequest(
     JNIEnv *e, jclass, jlong id, jlong request, jint failure, jbyteArray result) {
     auto s = get(id);
     if (!s)
@@ -1375,70 +1375,70 @@ extern "C" JNIEXPORT void JNICALL Java_org_telegram_utils_twidget_WidgetSandboxN
         outcome.answer.result = bytes(e, result);
     respond(outcome);
 }
-extern "C" JNIEXPORT void JNICALL Java_org_telegram_utils_twidget_WidgetSandboxNative_width(JNIEnv *, jclass,
+extern "C" JNIEXPORT void JNICALL Java_org_rudy_chat_utils_twidget_WidgetSandboxNative_width(JNIEnv *, jclass,
                                                                                             jlong id,
                                                                                             jfloat width) {
     auto s = get(id);
     if (s)
         s->input([width](auto &r) { r.setWidth(width); });
 }
-extern "C" JNIEXPORT void JNICALL Java_org_telegram_utils_twidget_WidgetSandboxNative_tick(
+extern "C" JNIEXPORT void JNICALL Java_org_rudy_chat_utils_twidget_WidgetSandboxNative_tick(
     JNIEnv *, jclass, jlong id, jfloat ms, jboolean frame, jboolean animate, jboolean paint) {
     auto s = get(id);
     if (s)
         s->input([=](auto &r) { r.tick(ms, frame, animate, paint); });
 }
-extern "C" JNIEXPORT void JNICALL Java_org_telegram_utils_twidget_WidgetSandboxNative_repaint(JNIEnv *,
+extern "C" JNIEXPORT void JNICALL Java_org_rudy_chat_utils_twidget_WidgetSandboxNative_repaint(JNIEnv *,
                                                                                               jclass,
                                                                                               jlong id) {
     auto s = get(id);
     if (s)
         s->input([](auto &r) { r.repaint(); });
 }
-extern "C" JNIEXPORT void JNICALL Java_org_telegram_utils_twidget_WidgetSandboxNative_touch(
+extern "C" JNIEXPORT void JNICALL Java_org_rudy_chat_utils_twidget_WidgetSandboxNative_touch(
     JNIEnv *, jclass, jlong id, jint action, jfloat x, jfloat y, jint pointer, jboolean primary, jboolean mouse,
     jint modifiers, jint button) {
     auto s = get(id);
     if (s)
         s->input([=](auto &r) { r.touch(action, x, y, pointer, primary, mouse, modifiers, button); });
 }
-extern "C" JNIEXPORT void JNICALL Java_org_telegram_utils_twidget_WidgetSandboxNative_hover(
+extern "C" JNIEXPORT void JNICALL Java_org_rudy_chat_utils_twidget_WidgetSandboxNative_hover(
     JNIEnv *, jclass, jlong id, jint action, jfloat x, jfloat y, jint modifiers) {
     auto s = get(id);
     if (s)
         s->input([=](auto &r) { r.hover(action, x, y, modifiers); });
 }
-extern "C" JNIEXPORT void JNICALL Java_org_telegram_utils_twidget_WidgetSandboxNative_conformance(JNIEnv *, jclass,
+extern "C" JNIEXPORT void JNICALL Java_org_rudy_chat_utils_twidget_WidgetSandboxNative_conformance(JNIEnv *, jclass,
                                                                                                   jboolean enabled) {
     conformanceReports = enabled;
 }
 
-extern "C" JNIEXPORT void JNICALL Java_org_telegram_utils_twidget_WidgetSandboxNative_limits(JNIEnv *e, jclass,
+extern "C" JNIEXPORT void JNICALL Java_org_rudy_chat_utils_twidget_WidgetSandboxNative_limits(JNIEnv *e, jclass,
                                                                                               jbyteArray json) {
     std::lock_guard lock(limitsMutex);
     limitsOverride = json ? bytes(e, json) : std::string();
 }
 
-extern "C" JNIEXPORT void JNICALL Java_org_telegram_utils_twidget_WidgetSandboxNative_attackScan(JNIEnv *, jclass,
+extern "C" JNIEXPORT void JNICALL Java_org_rudy_chat_utils_twidget_WidgetSandboxNative_attackScan(JNIEnv *, jclass,
                                                                                                  jboolean enabled) {
     attackScan = enabled;
 }
 
 #ifdef WIDGET_SANDBOX_TESTING
 extern "C" JNIEXPORT jobject JNICALL
-Java_org_telegram_ui_Components_WidgetSandboxTestNative_backend(JNIEnv *e, jclass, jlong id) {
+Java_org_rudy_chat_ui_Components_WidgetSandboxTestNative_backend(JNIEnv *e, jclass, jlong id) {
     auto s = get(id);
     return s && !s->closing ? s->backend->test_object(e) : nullptr;
 }
 // Host harness only; Android release builds expose no arbitrary JS evaluation
 // API.
 extern "C" JNIEXPORT jbyteArray JNICALL
-Java_org_telegram_ui_Components_WidgetSandboxTestNative_probe(JNIEnv *e, jclass, jlong id, jbyteArray code) {
+Java_org_rudy_chat_ui_Components_WidgetSandboxTestNative_probe(JNIEnv *e, jclass, jlong id, jbyteArray code) {
     auto s = get(id);
     return bytes(e, s && !s->closing ? s->host->probe(bytes(e, code)) : "closed");
 }
 extern "C" JNIEXPORT jint JNICALL
-Java_org_telegram_ui_Components_WidgetSandboxTestNative_liveSessions(JNIEnv *, jclass) {
+Java_org_rudy_chat_ui_Components_WidgetSandboxTestNative_liveSessions(JNIEnv *, jclass) {
     std::lock_guard lock(registryMutex);
     return sessions.size();
 }
@@ -1447,13 +1447,13 @@ Java_org_telegram_ui_Components_WidgetSandboxTestNative_liveSessions(JNIEnv *, j
 extern "C" bool registerTwidgetNatives(JNIEnv *e) {
     if (!e || e->GetJavaVM(&vm) != JNI_OK)
         return false;
-    jclass type = e->FindClass("org/telegram/utils/twidget/WidgetSandboxNative");
+    jclass type = e->FindClass("org/rudy/chat/utils/twidget/WidgetSandboxNative");
     if (!type)
         return false;
 #define BIND(name, signature)                                                                                \
     {                                                                                                        \
         const_cast<char *>(#name), const_cast<char *>(signature),                                            \
-            reinterpret_cast<void *>(Java_org_telegram_utils_twidget_WidgetSandboxNative_##name)             \
+            reinterpret_cast<void *>(Java_org_rudy_chat_utils_twidget_WidgetSandboxNative_##name)             \
     }
     const JNINativeMethod methods[] = {
         BIND(create, "([B[B[BFFI[B[B[B[BZLjava/lang/Object;)J"),

@@ -3,7 +3,7 @@ plugins {
     id 'com.google.gms.google-services'
     id 'com.google.firebase.crashlytics'
 }
-apply plugin: 'org.telegram.build-app-plugin'
+apply plugin: 'org.rudy.chat.build-app-plugin'
 
 repositories {
     mavenCentral()
@@ -184,7 +184,7 @@ android {
     buildFeatures {
         buildConfig = true
     }
-    namespace 'org.telegram.messenger.regular'
+    namespace 'org.rudy.chat.messenger.regular'
 
     lintOptions {
         checkReleaseBuilds false

@@ -428,7 +428,7 @@ Program build(bool enforce) {
 }  // namespace
 
 // 0 when the filter is on; else the errno of the step that failed (the engine then runs without it).
-extern "C" JNIEXPORT jint JNICALL Java_org_telegram_utils_twidget_WidgetEngineService_installSeccomp(JNIEnv *, jclass,
+extern "C" JNIEXPORT jint JNICALL Java_org_rudy_chat_utils_twidget_WidgetEngineService_installSeccomp(JNIEnv *, jclass,
         jboolean enforce) {
     static std::atomic<bool> installed{false};
     if (installed.exchange(true)) return 0;
@@ -470,7 +470,7 @@ extern "C" JNIEXPORT jint JNICALL Java_org_telegram_utils_twidget_WidgetEngineSe
 
 // Debug builds: a few calls the filter refuses, with what came back, as a log line each. Audit: each also shows up as
 // an "audit:" line, then gets the kernel's own answer (exec still EPERM).
-extern "C" JNIEXPORT void JNICALL Java_org_telegram_utils_twidget_WidgetEngineService_seccompSelfTest(JNIEnv *, jclass) {
+extern "C" JNIEXPORT void JNICALL Java_org_rudy_chat_utils_twidget_WidgetEngineService_seccompSelfTest(JNIEnv *, jclass) {
     auto run = [](const char *what, long result) {
         int error = result < 0 ? errno : 0;
         __android_log_print(ANDROID_LOG_INFO, TAG, "self-test: %s -> %ld (%s)", what, result, error ? strerror(error) : "ok");

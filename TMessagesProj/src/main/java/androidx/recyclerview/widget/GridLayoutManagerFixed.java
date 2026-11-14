@@ -13,7 +13,7 @@ import android.view.View;
 
 
 
-import org.telegram.ui.Cells.ChatMessageCell;
+import org.rudy.chat.ui.Cells.ChatMessageCell;
 
 import java.util.ArrayList;
 import java.util.Arrays;

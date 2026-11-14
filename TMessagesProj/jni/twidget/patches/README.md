@@ -16,9 +16,9 @@ What the Android build compiles (`jni/twidget/twidget.cmake`, into `libtwidget.s
 (`litehtml`); `twidget.cmake` generates `tw_ua_stylesheet.h` from widget-sandbox's `profile.json`, as twidget's CMake does. The JS bundles in `assets/WidgetSandbox/WidgetJS` are widget-sandbox's
 `packages/desktop/WidgetJS` of the same commit, byte for byte; `manifest.txt` is their SHA-256.
 
-The Java side is in `org.telegram.utils.twidget` (the bridge's `WidgetSandboxNative` and `WidgetSandboxBackend`,
+The Java side is in `org.rudy.chat.utils.twidget` (the bridge's `WidgetSandboxNative` and `WidgetSandboxBackend`,
 the session and the message, painting, the chat's widget messages in `WidgetMedia`, the debug runners), except what
-draws a widget into a View, which stays in `org.telegram.ui.Components`: `RichWidgetBlock` (the chat bubble),
+draws a widget into a View, which stays in `org.rudy.chat.ui.Components`: `RichWidgetBlock` (the chat bubble),
 `WidgetInlinePreview` (an inline result) and `WidgetSandboxPlayer` (frames and touches between the two).
 
 ## Processes (since 2026-11-07)

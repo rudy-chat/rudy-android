@@ -6,12 +6,12 @@ plugins {
 gradlePlugin {
     plugins {
         register("telegramBuildPlugin") {
-            id = "org.telegram.build-plugin"
-            implementationClass = "org.telegram.plugin.TelegramBuildPlugin"
+            id = "org.rudy.chat.build-plugin"
+            implementationClass = "org.rudy.chat.plugin.TelegramBuildPlugin"
         }
         register("telegramBuildAppPlugin") {
-            id = "org.telegram.build-app-plugin"
-            implementationClass = "org.telegram.plugin.TelegramBuildAppPlugin"
+            id = "org.rudy.chat.build-app-plugin"
+            implementationClass = "org.rudy.chat.plugin.TelegramBuildAppPlugin"
         }
         register("testGenerator") {
             id = "test-generator"

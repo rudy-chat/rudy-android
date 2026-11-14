@@ -1,0 +1,48 @@
+package org.rudy.chat.ui.Components.Premium.boosts.cells;
+
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.view.Gravity;
+import android.view.View;
+import android.widget.FrameLayout;
+
+import org.rudy.chat.messenger.R;
+import org.rudy.chat.ui.ActionBar.Theme;
+import org.rudy.chat.ui.ActionBar.ThemeBind;
+import org.rudy.chat.ui.Components.LayoutHelper;
+import org.rudy.chat.ui.Components.Premium.boosts.BoostRepository;
+import org.rudy.chat.ui.Components.SlideChooseView;
+
+import java.util.List;
+
+@SuppressLint("ViewConstructor")
+public class SliderCell extends FrameLayout {
+
+    private final Theme.ResourcesProvider resourcesProvider;
+    private final SlideChooseView slideChooseView;
+    protected View backgroundView;
+
+    public SliderCell(Context context, Theme.ResourcesProvider resourcesProvider) {
+        super(context);
+        this.resourcesProvider = resourcesProvider;
+        backgroundView = new View(context);
+        addView(backgroundView, LayoutHelper.createLinear(LayoutHelper.MATCH_PARENT, LayoutHelper.MATCH_PARENT));
+        ThemeBind.backgroundColor(backgroundView, Theme.key_dialogBackground, resourcesProvider);
+        this.slideChooseView = new SlideChooseView(context, resourcesProvider);
+        addView(slideChooseView, LayoutHelper.createFrame(LayoutHelper.MATCH_PARENT, LayoutHelper.MATCH_PARENT, Gravity.TOP, 0, 0, 0, 0));
+        ThemeBind.themedBackground(this, getContext(), R.drawable.greydivider_top, Theme.key_windowBackgroundGrayShadow);
+    }
+
+    public void setCallBack(SlideChooseView.Callback callback) {
+        slideChooseView.setCallback(callback);
+    }
+
+    public void setValues(List<Integer> values, int selected) {
+        String[] valuesStr = new String[values.size()];
+        for (int i = 0; i < values.size(); i++) {
+            Integer val = values.get(i);
+            valuesStr[i] = String.valueOf(val);
+        }
+        slideChooseView.setOptions(selected, valuesStr);
+    }
+}

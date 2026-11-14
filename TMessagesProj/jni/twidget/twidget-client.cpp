@@ -2,7 +2,7 @@
 // client never loads libtwidget.so: that library, QuickJS and the renderer, is mapped only into the isolated engine
 // process (WidgetEngineService) and the debug runners' in-process engine. Two pieces, neither of which reads widget
 // code: widget-sandbox's gesture policy (gesture_policy.cpp) and twidget's CPU filter pass (core/src/filters.cpp).
-// Java: org.telegram.utils.twidget.WidgetClientNative, resolved by name (Java_* is exported, exports.map).
+// Java: org.rudy.chat.utils.twidget.WidgetClientNative, resolved by name (Java_* is exported, exports.map).
 #include "filters.h"
 #include "twidget/gesture_policy.h"
 
@@ -26,14 +26,14 @@ jint verdictBits(const std::optional<twidget::GestureVerdict> &v) { return v ? v
 twidget::GestureArbiter *arbiterOf(jlong h) { return reinterpret_cast<twidget::GestureArbiter *>(h); }
 } // namespace
 
-extern "C" JNIEXPORT jlong JNICALL Java_org_telegram_utils_twidget_WidgetClientNative_arbiterCreate(JNIEnv *, jclass) {
+extern "C" JNIEXPORT jlong JNICALL Java_org_rudy_chat_utils_twidget_WidgetClientNative_arbiterCreate(JNIEnv *, jclass) {
     return reinterpret_cast<jlong>(new twidget::GestureArbiter());
 }
-extern "C" JNIEXPORT void JNICALL Java_org_telegram_utils_twidget_WidgetClientNative_arbiterDestroy(JNIEnv *, jclass,
+extern "C" JNIEXPORT void JNICALL Java_org_rudy_chat_utils_twidget_WidgetClientNative_arbiterDestroy(JNIEnv *, jclass,
                                                                                                     jlong h) {
     delete arbiterOf(h);
 }
-extern "C" JNIEXPORT jint JNICALL Java_org_telegram_utils_twidget_WidgetClientNative_arbiterDown(
+extern "C" JNIEXPORT jint JNICALL Java_org_rudy_chat_utils_twidget_WidgetClientNative_arbiterDown(
     JNIEnv *, jclass, jlong h, jdouble t, jdouble x, jdouble y, jboolean claimX, jboolean claimY, jboolean hold,
     jboolean mouse, jint button) {
     twidget::WidgetGestureClaim claim;
@@ -42,25 +42,25 @@ extern "C" JNIEXPORT jint JNICALL Java_org_telegram_utils_twidget_WidgetClientNa
     claim.hold = hold;
     return verdictBits(arbiterOf(h)->down(t, x, y, claim, mouse ? twidget::PointerKind::Mouse : twidget::PointerKind::Touch, button));
 }
-extern "C" JNIEXPORT jint JNICALL Java_org_telegram_utils_twidget_WidgetClientNative_arbiterMove(JNIEnv *, jclass,
+extern "C" JNIEXPORT jint JNICALL Java_org_rudy_chat_utils_twidget_WidgetClientNative_arbiterMove(JNIEnv *, jclass,
                                                                                                  jlong h, jdouble t,
                                                                                                  jdouble x, jdouble y) {
     return verdictBits(arbiterOf(h)->move(t, x, y));
 }
-extern "C" JNIEXPORT jint JNICALL Java_org_telegram_utils_twidget_WidgetClientNative_arbiterTick(JNIEnv *, jclass,
+extern "C" JNIEXPORT jint JNICALL Java_org_rudy_chat_utils_twidget_WidgetClientNative_arbiterTick(JNIEnv *, jclass,
                                                                                                  jlong h, jdouble t) {
     return verdictBits(arbiterOf(h)->tick(t));
 }
-extern "C" JNIEXPORT jint JNICALL Java_org_telegram_utils_twidget_WidgetClientNative_arbiterUp(JNIEnv *, jclass,
+extern "C" JNIEXPORT jint JNICALL Java_org_rudy_chat_utils_twidget_WidgetClientNative_arbiterUp(JNIEnv *, jclass,
                                                                                                jlong h, jdouble t,
                                                                                                jdouble x, jdouble y) {
     return verdictBits(arbiterOf(h)->up(t, x, y));
 }
-extern "C" JNIEXPORT void JNICALL Java_org_telegram_utils_twidget_WidgetClientNative_arbiterCancel(JNIEnv *, jclass,
+extern "C" JNIEXPORT void JNICALL Java_org_rudy_chat_utils_twidget_WidgetClientNative_arbiterCancel(JNIEnv *, jclass,
                                                                                                    jlong h) {
     arbiterOf(h)->cancel();
 }
-extern "C" JNIEXPORT jdouble JNICALL Java_org_telegram_utils_twidget_WidgetClientNative_arbiterHoldDeadline(JNIEnv *,
+extern "C" JNIEXPORT jdouble JNICALL Java_org_rudy_chat_utils_twidget_WidgetClientNative_arbiterHoldDeadline(JNIEnv *,
                                                                                                            jclass,
                                                                                                            jlong h) {
     auto deadline = arbiterOf(h)->holdDeadline();
@@ -70,7 +70,7 @@ extern "C" JNIEXPORT jdouble JNICALL Java_org_telegram_utils_twidget_WidgetClien
 // CSS filters where RenderEffect is missing (before API 31) or the canvas is a bitmap's: a FilterPush's filters
 // (display_list.h's Filter: kind, amount, x, y, ARGB, as parallel arrays of one length) over an ARGB_8888 bitmap's
 // premultiplied pixels, in place. `scale`: the bitmap's px per CSS px.
-extern "C" JNIEXPORT void JNICALL Java_org_telegram_utils_twidget_WidgetClientNative_filterPixels(
+extern "C" JNIEXPORT void JNICALL Java_org_rudy_chat_utils_twidget_WidgetClientNative_filterPixels(
     JNIEnv *e, jclass, jobject bitmap, jintArray kinds, jfloatArray amounts, jfloatArray xs, jfloatArray ys,
     jintArray colors, jfloat scale) {
     if (!bitmap || !kinds || !amounts || !xs || !ys || !colors)
