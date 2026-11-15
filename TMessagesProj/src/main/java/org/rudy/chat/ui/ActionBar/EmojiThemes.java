@@ -238,14 +238,16 @@ public class EmojiThemes {
         themeItem.key = ThemeKey.ofEmoticon(themeItem.emoji);
         themeItem.chatTheme = TLRPC.ChatTheme.ofEmoticon(themeItem.emoji);
 
-        ThemeItem blue = new ThemeItem();
-        blue.themeInfo = Theme.getTheme("Blue");
-        blue.accentId = 99;
-        themeItem.items.add(blue);
+        // Rudy: the home card keeps Telegram's four positions (0 light, 1 "Day", 2 "Night", 3 "Dark Blue"), which
+        // DefaultThemesPreviewCell indexes into, filled with Rudy's themes and their default accents (id 0).
+        ThemeItem light = new ThemeItem();
+        light.themeInfo = Theme.getTheme("Blue");
+        light.accentId = 0;
+        themeItem.items.add(light);
 
         ThemeItem day = new ThemeItem();
-        day.themeInfo = Theme.getTheme("Day");
-        day.accentId = 9;
+        day.themeInfo = Theme.getTheme("Blue");
+        day.accentId = 0;
         themeItem.items.add(day);
 
         ThemeItem night = new ThemeItem();
@@ -253,10 +255,10 @@ public class EmojiThemes {
         night.accentId = 0;
         themeItem.items.add(night);
 
-        ThemeItem nightBlue = new ThemeItem();
-        nightBlue.themeInfo = Theme.getTheme("Dark Blue");
-        nightBlue.accentId = 0;
-        themeItem.items.add(nightBlue);
+        ThemeItem dark = new ThemeItem();
+        dark.themeInfo = Theme.getTheme("Dark Blue");
+        dark.accentId = 0;
+        themeItem.items.add(dark);
         return themeItem;
     }
 
@@ -268,7 +270,7 @@ public class EmojiThemes {
 
         ThemeItem blue = new ThemeItem();
         blue.themeInfo = Theme.getTheme("Blue");
-        blue.accentId = 99;
+        blue.accentId = 0;
         themeItem.items.add(blue);
 
         ThemeItem nightBlue = new ThemeItem();

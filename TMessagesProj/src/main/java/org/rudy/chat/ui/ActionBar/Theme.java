@@ -2005,6 +2005,12 @@ public class Theme {
                 return null;
             }
             ThemeAccent accent = themeAccentsMap.get(currentAccentId);
+            if (accent == null && !themeAccents.isEmpty() && pathToFile == null) {
+                // Rudy: an accent id that is not ours (Telegram's 99 / 9 from older code paths and pickers) falls
+                // back to this theme's default accent instead of the raw base theme colors.
+                accent = themeAccents.get(0);
+                currentAccentId = accent.id;
+            }
             if (accent == null) {
                 return null;
             }
@@ -4046,6 +4052,11 @@ public class Theme {
         themes.add(themeInfo);
         themesDict.put("Night", themeInfo);
 
+        // Telegram's other base theme names (used by cloud and chat themes the server sends) map to Rudy Light,
+        // so those themes apply on top of a real Rudy theme instead of being half-applied.
+        themesDict.put("Day", themesDict.get("Blue"));
+        themesDict.put("Arctic Blue", themesDict.get("Blue"));
+
         String themesString = themeConfig.getString("themes2", null);
 
         int remoteVersion = themeConfig.getInt("remote_version", 0);
@@ -4134,7 +4145,7 @@ public class Theme {
 
             SharedPreferences.Editor oldEditor = null;
             SharedPreferences.Editor oldEditorNew = null;
-            for (ThemeInfo info : themesDict.values()) {
+            for (ThemeInfo info : new java.util.LinkedHashSet<>(themesDict.values())) { // Rudy: aliases share one ThemeInfo
                 if (info.assetName != null && info.accentBaseColor != 0) {
                     String accents = themeConfig.getString("accents_" + info.assetName, null);
                     info.currentAccentId = themeConfig.getInt("accent_current_" + info.assetName, info.firstAccentIsDefault ? DEFALT_THEME_ACCENT_ID : 0);
