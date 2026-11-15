@@ -4023,6 +4023,29 @@ public class Theme {
         themes.add(themeInfo);
         themesDict.put("Dark Blue", currentNightTheme = themeInfo);
 
+        // true black (OLED) variant of the dark theme; internal name "Night" is already known to be dark
+        themeInfo = new ThemeInfo();
+        themeInfo.name = "Night";
+        themeInfo.assetName = "rudy_black.attheme";
+        themeInfo.previewBackgroundColor = 0xff000000;
+        themeInfo.previewInColor = 0xff1c1c1e;
+        themeInfo.previewOutColor = RudyTheme.DARK_BUBBLES[0];
+        themeInfo.firstAccentIsDefault = false;
+        themeInfo.currentAccentId = 0;
+        themeInfo.sortIndex = 3;
+        themeInfo.setAccentColorOptions(
+                RudyTheme.DARK_ACCENTS,
+                RudyTheme.DARK_BUBBLES,
+                RudyTheme.DARK_BUBBLES,
+                null, null, null, null,
+                RudyTheme.ACCENT_IDS,
+                null, null, null
+        );
+        themeInfo.accentBaseColor = RudyTheme.NIGHT_ASSET_ACCENT;
+        sortAccents(themeInfo);
+        themes.add(themeInfo);
+        themesDict.put("Night", themeInfo);
+
         String themesString = themeConfig.getString("themes2", null);
 
         int remoteVersion = themeConfig.getInt("remote_version", 0);

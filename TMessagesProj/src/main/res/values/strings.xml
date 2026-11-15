@@ -2247,7 +2247,7 @@
     <string name="AutoNightBrightnessInfo">Switch to your preferred night theme when ambient lighting falls below %1$d%%.</string>
     <string name="ThemeDark">Dark</string>
     <string name="ThemeDay">Day</string>
-    <string name="ThemeNight">Night</string>
+    <string name="ThemeNight">Black</string>
     <string name="ThemeArcticBlue">Arctic</string>
     <string name="ThemeClassic">Light</string>
     <string name="DeleteThemeTitle">Delete theme</string>
