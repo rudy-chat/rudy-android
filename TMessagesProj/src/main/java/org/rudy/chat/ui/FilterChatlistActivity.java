@@ -952,7 +952,7 @@ frameLayout.addView(listView, LayoutHelper.createFrame(LayoutHelper.MATCH_PARENT
             spoilerTextView = new SimpleTextView(context);
             spoilerTextView.setTextSize(16);
             ThemeBind.textColor(spoilerTextView, Theme.key_windowBackgroundWhiteBlackText);
-            SpannableString spoileredText = new SpannableString("t.me/folder/N3k/dImA/bIo");
+            SpannableString spoileredText = new SpannableString("rudy.chat/folder/N3k/dImA/bIo");
             TextStyleSpan.TextStyleRun run = new TextStyleSpan.TextStyleRun();
             run.flags |= FLAG_STYLE_SPOILER;
             spoileredText.setSpan(new TextStyleSpan(run), 0, spoileredText.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);

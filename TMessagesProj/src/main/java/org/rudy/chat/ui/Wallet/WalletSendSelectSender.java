@@ -546,7 +546,7 @@ public class WalletSendSelectSender extends UniversalFragment {
         if (!WalletActivity.isWalletQrLink(uri)) return null;
         final String username = WalletActivity.walletQrUsername(uri);
         if (username != null) return "@" + username;
-        // t.me/sendgrams?to=<address or username>
+        // rudy.chat/sendgrams?to=<address or username>
         final String to = uri.getQueryParameter("to");
         if (TextUtils.isEmpty(to)) return null;
         if (to.startsWith("@") || to.matches("[a-zA-Z0-9_]{1,32}")) {

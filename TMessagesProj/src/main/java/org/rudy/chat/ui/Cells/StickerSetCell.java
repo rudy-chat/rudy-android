@@ -70,8 +70,8 @@ import java.util.Locale;
 import android.graphics.drawable.Drawable;
 
 public class StickerSetCell extends FrameLayout implements Theme.Colorable {
-    private final static String LINK_PREFIX = "t.me/addstickers/";
-    private final static String LINK_PREFIX_EMOJI = "t.me/addemoji/";
+    private final static String LINK_PREFIX = "rudy.chat/addstickers/";
+    private final static String LINK_PREFIX_EMOJI = "rudy.chat/addemoji/";
 
     private final int option;
 

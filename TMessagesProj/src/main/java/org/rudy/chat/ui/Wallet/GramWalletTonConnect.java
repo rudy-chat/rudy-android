@@ -499,8 +499,8 @@ public class GramWalletTonConnect {
                 throw new IllegalArgumentException("Requested network does not match the wallet network");
             }
             if ("ton_proof".equals(item.getString("name"))) {
-                if (domain.replaceFirst("\\.$", "").equals("telegram.org")) {
-                    throw new IllegalArgumentException("The telegram.org proof domain is reserved for wallet import");
+                if (domain.replaceFirst("\\.$", "").equals("rudy.chat")) {
+                    throw new IllegalArgumentException("The rudy.chat proof domain is reserved for wallet import");
                 }
                 item.getString("payload");
             }

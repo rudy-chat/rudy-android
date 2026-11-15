@@ -1255,7 +1255,7 @@ public final class WidgetMedia {
 
     /**
      * A link the widget asked to open from a real tap: confirmed with the full URL, then the browser or
-     * the client's own t.me handling (docs/sdk-v1.md §5.2). One dialog at a time.
+     * the client's own rudy.chat handling (docs/sdk-v1.md §5.2). One dialog at a time.
      */
     private static void openLink(String url, boolean telegram) {
         if (TextUtils.isEmpty(url) || linkDialogShown) return;

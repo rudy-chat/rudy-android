@@ -314,7 +314,7 @@ public class ChatCustomReactionsEditActivity extends BaseFragment implements Not
         infoCell2.setText(AndroidUtilities.replaceSingleTag(
                 getString(R.string.ReactionCreateOwnPack),
                 Theme.key_chat_messageLinkIn, 0,
-                () -> Browser.openUrl(getContext(), "https://t.me/stickers"),
+                () -> Browser.openUrl(getContext(), "https://rudy.chat/stickers"),
                 getResourceProvider()
         ));
         addReactionSettingsView(infoCell2, true);

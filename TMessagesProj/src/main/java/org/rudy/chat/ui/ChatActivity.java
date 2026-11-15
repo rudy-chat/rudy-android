@@ -25788,7 +25788,7 @@ public class ChatActivity extends BaseFragment implements
             if (messageObject.sponsoredUrl != null) {
                 try {
                     if (sponsoredUrlPattern == null) {
-                        sponsoredUrlPattern = Pattern.compile("https://t\\.me/(\\w+)(?:/(\\d+))?");
+                        sponsoredUrlPattern = Pattern.compile("https://rudy\\.chat/(\\w+)(?:/(\\d+))?");
                     }
                     Matcher matcher = sponsoredUrlPattern.matcher(messageObject.sponsoredUrl);
                     if (matcher.matches()) {
@@ -37229,13 +37229,13 @@ public class ChatActivity extends BaseFragment implements
                                 TLRPC.Chat currentChat = MessagesController.getInstance(currentAccount).getChat(-dialogId);
                                 String username = ChatObject.getPublicUsername(currentChat);
                                 if (currentChat != null && username != null) {
-                                    link = "https://t.me/" + username + "/" + messageId + "?t=" + AndroidUtilities.formatTimestamp(finalTimestamp);
+                                    link = "https://rudy.chat/" + username + "/" + messageId + "?t=" + AndroidUtilities.formatTimestamp(finalTimestamp);
                                 }
                             } else {
                                 TLRPC.User user = MessagesController.getInstance(currentAccount).getUser(dialogId);
                                 String username = UserObject.getPublicUsername(user);
                                 if (user != null && username != null) {
-                                    link = "https://t.me/" + username + "/" + messageId + "?t=" + AndroidUtilities.formatTimestamp(finalTimestamp);
+                                    link = "https://rudy.chat/" + username + "/" + messageId + "?t=" + AndroidUtilities.formatTimestamp(finalTimestamp);
                                 }
                             }
                             if (link == null) {
@@ -37700,7 +37700,7 @@ public class ChatActivity extends BaseFragment implements
                     if (messageObject != null && messageObject.messageOwner.media instanceof TLRPC.TL_messageMediaWebPage && messageObject.messageOwner.media.webpage != null && messageObject.messageOwner.media.webpage.cached_page != null) {
                         String lowerUrl = urlFinal.toLowerCase();
                         String lowerUrl2 = messageObject.messageOwner.media.webpage.url.toLowerCase();
-                        if ((lowerUrl.contains("telegram.org/blog") || Browser.isTelegraphUrl(lowerUrl, false) || lowerUrl.contains("t.me/iv")) && (lowerUrl.contains(lowerUrl2) || lowerUrl2.contains(lowerUrl))) {
+                        if ((lowerUrl.contains("rudy.chat/blog") || Browser.isTelegraphUrl(lowerUrl, false) || lowerUrl.contains("rudy.chat/iv")) && (lowerUrl.contains(lowerUrl2) || lowerUrl2.contains(lowerUrl))) {
                             if (LaunchActivity.instance != null && LaunchActivity.instance.getBottomSheetTabs() != null && LaunchActivity.instance.getBottomSheetTabs().tryReopenTab(messageObject) != null) {
                                 return;
                             }
@@ -42796,7 +42796,7 @@ public class ChatActivity extends BaseFragment implements
                     webPage = messageObject.messageOwner.media.webpage;
                 }
                 if (webPage == null || webPage.url == null) return;
-                Pattern pattern = Pattern.compile("^https?\\:\\/\\/t\\.me\\/add(?:emoji|stickers)\\/(.+)$");
+                Pattern pattern = Pattern.compile("^https?\\:\\/\\/rudy\\.chat\\/add(?:emoji|stickers)\\/(.+)$");
                 Matcher m = pattern.matcher(webPage.url);
 
                 if (progressDialogCurrent != null) {
@@ -43308,7 +43308,7 @@ public class ChatActivity extends BaseFragment implements
             cell.invalidate();
         } : null;
         if (urlFinal.startsWith("tg:privatepost") || urlFinal.startsWith("tg://privatepost")) {
-            String urlTmp = urlFinal.replace("tg:privatepost", "tg://telegram.org").replace("tg://privatepost", "tg://telegram.org");
+            String urlTmp = urlFinal.replace("tg:privatepost", "tg://rudy.chat").replace("tg://privatepost", "tg://rudy.chat");
             Uri data = Uri.parse(urlTmp);
             int messageId = Utilities.parseInt(data.getQueryParameter("post"));
             long channelId = Utilities.parseLong(data.getQueryParameter("channel"));
@@ -43330,8 +43330,8 @@ public class ChatActivity extends BaseFragment implements
         } else if (ChatObject.getPublicUsername(currentChat) != null) {
             try {
                 if (publicMsgUrlPattern == null) {
-                    publicMsgUrlPattern = Pattern.compile("(https://)?t.me/([0-9a-zA-Z_]+)/([0-9]+)/?([0-9]+)?");
-                    voiceChatUrlPattern = Pattern.compile("(https://)?t.me/([0-9a-zA-Z_]+)\\?(voicechat+)");
+                    publicMsgUrlPattern = Pattern.compile("(https://)?rudy.chat/([0-9a-zA-Z_]+)/([0-9]+)/?([0-9]+)?");
+                    voiceChatUrlPattern = Pattern.compile("(https://)?rudy.chat/([0-9a-zA-Z_]+)\\?(voicechat+)");
                 }
                 Matcher matcher = publicMsgUrlPattern.matcher(urlFinal);
                 if (matcher.find(2) && matcher.find(3) && ChatObject.hasPublicLink(currentChat, matcher.group(2))) {
@@ -43372,7 +43372,7 @@ public class ChatActivity extends BaseFragment implements
                     }
                     return true;
                 } else if (urlFinal.startsWith("tg:resolve") || urlFinal.startsWith("tg://resolve")) {
-                    String urlTmp = urlFinal.replace("tg:resolve", "tg://telegram.org").replace("tg://resolve", "tg://telegram.org");
+                    String urlTmp = urlFinal.replace("tg:resolve", "tg://rudy.chat").replace("tg://resolve", "tg://rudy.chat");
                     Uri data = Uri.parse(urlTmp);
                     String usernameE = data.getQueryParameter("domain").toLowerCase();
                     int messageId = Utilities.parseInt(data.getQueryParameter("post"));
@@ -43413,7 +43413,7 @@ public class ChatActivity extends BaseFragment implements
         } else {
             try {
                 if (privateMsgUrlPattern == null) {
-                    privateMsgUrlPattern = Pattern.compile("(https://)?t.me/c/([0-9]+)/([0-9]+)/?([0-9]+)?");
+                    privateMsgUrlPattern = Pattern.compile("(https://)?rudy.chat/c/([0-9]+)/([0-9]+)/?([0-9]+)?");
                 }
                 Matcher matcher = privateMsgUrlPattern.matcher(urlFinal);
                 if (matcher.find(2) && matcher.find(3) && matcher.group(4) == null) {
@@ -45304,13 +45304,13 @@ public class ChatActivity extends BaseFragment implements
                     TLRPC.Chat currentChat = MessagesController.getInstance(currentAccount).getChat(-dialogId);
                     String username = ChatObject.getPublicUsername(currentChat);
                     if (currentChat != null && username != null) {
-                        link = "https://t.me/" + username + "/" + messageId + "?t=" + AndroidUtilities.formatTimestamp(timestamp);
+                        link = "https://rudy.chat/" + username + "/" + messageId + "?t=" + AndroidUtilities.formatTimestamp(timestamp);
                     }
                 } else {
                     TLRPC.User user = MessagesController.getInstance(currentAccount).getUser(dialogId);
                     String username = UserObject.getPublicUsername(user);
                     if (user != null && username != null) {
-                        link = "https://t.me/" + username + "/" + messageId + "?t=" + AndroidUtilities.formatTimestamp(timestamp);
+                        link = "https://rudy.chat/" + username + "/" + messageId + "?t=" + AndroidUtilities.formatTimestamp(timestamp);
                     }
                 }
                 if (link == null) {

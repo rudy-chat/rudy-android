@@ -231,7 +231,7 @@ public abstract class GiftInfoAdapter extends RecyclerListView.SelectionAdapter 
     }
 
     private void share() {
-        final String slugLink = "https://t.me/giftcode/" + slug;
+        final String slugLink = "https://rudy.chat/giftcode/" + slug;
         Bundle args = new Bundle();
         args.putBoolean("onlySelect", true);
         args.putInt("dialogsType", DialogsActivity.DIALOGS_TYPE_FORWARD);

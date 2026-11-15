@@ -1005,7 +1005,7 @@ public class ReportBottomSheet extends BottomSheet {
                                                         LocaleController.getString(R.string.AdReported),
                                                         -1,
                                                         AndroidUtilities.REPLACING_TAG_TYPE_LINKBOLD,
-                                                        () -> Browser.openUrl(context, "https://promote.telegram.org/guidelines"),
+                                                        () -> Browser.openUrl(context, "https://promote.rudy.chat/guidelines"),
                                                         resourceProvider
                                                     )
                                                 )
@@ -1041,7 +1041,7 @@ public class ReportBottomSheet extends BottomSheet {
                                     LocaleController.getString(R.string.AdReported),
                                     -1,
                                     AndroidUtilities.REPLACING_TAG_TYPE_LINKBOLD,
-                                    () -> Browser.openUrl(context, "https://promote.telegram.org/guidelines"),
+                                    () -> Browser.openUrl(context, "https://promote.rudy.chat/guidelines"),
                                     resourceProvider
                                 )
                             )
@@ -1067,7 +1067,7 @@ public class ReportBottomSheet extends BottomSheet {
                                 LocaleController.getString(R.string.AdReported),
                                 -1,
                                 AndroidUtilities.REPLACING_TAG_TYPE_LINKBOLD,
-                                () -> Browser.openUrl(context, "https://promote.telegram.org/guidelines"),
+                                () -> Browser.openUrl(context, "https://promote.rudy.chat/guidelines"),
                                 resourceProvider
                             )
                         )
@@ -1120,7 +1120,7 @@ public class ReportBottomSheet extends BottomSheet {
                                                     LocaleController.getString(R.string.AdReported),
                                                     -1,
                                                     AndroidUtilities.REPLACING_TAG_TYPE_LINKBOLD,
-                                                    () -> Browser.openUrl(context, "https://promote.telegram.org/guidelines"),
+                                                    () -> Browser.openUrl(context, "https://promote.rudy.chat/guidelines"),
                                                     resourceProvider
                                                 )
                                             )
@@ -1164,7 +1164,7 @@ public class ReportBottomSheet extends BottomSheet {
                                     LocaleController.getString(R.string.AdReported),
                                     -1,
                                     AndroidUtilities.REPLACING_TAG_TYPE_LINKBOLD,
-                                    () -> Browser.openUrl(context, "https://promote.telegram.org/guidelines"),
+                                    () -> Browser.openUrl(context, "https://promote.rudy.chat/guidelines"),
                                     resourceProvider
                                 )
                             )
@@ -1197,7 +1197,7 @@ public class ReportBottomSheet extends BottomSheet {
                                 LocaleController.getString(R.string.AdReported),
                                 -1,
                                 AndroidUtilities.REPLACING_TAG_TYPE_LINKBOLD,
-                                () -> Browser.openUrl(context, "https://promote.telegram.org/guidelines"),
+                                () -> Browser.openUrl(context, "https://promote.rudy.chat/guidelines"),
                                 resourceProvider
                             )
                         )
@@ -1239,7 +1239,7 @@ public class ReportBottomSheet extends BottomSheet {
                                                     LocaleController.getString(R.string.AdReported),
                                                     -1,
                                                     AndroidUtilities.REPLACING_TAG_TYPE_LINKBOLD,
-                                                    () -> Browser.openUrl(context, "https://promote.telegram.org/guidelines"),
+                                                    () -> Browser.openUrl(context, "https://promote.rudy.chat/guidelines"),
                                                     resourceProvider
                                                 )
                                             )
@@ -1273,7 +1273,7 @@ public class ReportBottomSheet extends BottomSheet {
                                     LocaleController.getString(R.string.AdReported),
                                     -1,
                                     AndroidUtilities.REPLACING_TAG_TYPE_LINKBOLD,
-                                    () -> Browser.openUrl(context, "https://promote.telegram.org/guidelines"),
+                                    () -> Browser.openUrl(context, "https://promote.rudy.chat/guidelines"),
                                     resourceProvider
                                 )
                             )
@@ -1297,7 +1297,7 @@ public class ReportBottomSheet extends BottomSheet {
                                 LocaleController.getString(R.string.AdReported),
                                 -1,
                                 AndroidUtilities.REPLACING_TAG_TYPE_LINKBOLD,
-                                () -> Browser.openUrl(context, "https://promote.telegram.org/guidelines"),
+                                () -> Browser.openUrl(context, "https://promote.rudy.chat/guidelines"),
                                 resourceProvider
                             )
                         )

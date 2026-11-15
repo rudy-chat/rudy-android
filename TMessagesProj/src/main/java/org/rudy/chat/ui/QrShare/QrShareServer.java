@@ -31,7 +31,7 @@ import java.util.Arrays;
  * <li>the link of the code: the username, a public phone number, or else a contact token, replaced when it expires;</li>
  * <li>"Remove message fee": the chip shows while messages from non-contacts cost stars; the free code is a no-paid-messages
  * token, permanent (cached, shown at once) or, with the timer, a temporary one replaced every 30 seconds. Its link
- * comes from the server; with a contact token (no username, no import by phone) it is t.me/contact/…?free=…, and only
+ * comes from the server; with a contact token (no username, no import by phone) it is rudy.chat/contact/…?free=…, and only
  * temporary codes exist then;</li>
  * <li>the theme: it comes with the full user / chat (share_theme); the one in memory is shown at once, the full is
  * asked for as a chat does (from the database, from the server when the last load is more than a minute old) and

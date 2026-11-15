@@ -424,7 +424,7 @@ public class CreateBotAlert {
                                     ),
                                     () -> {
                                         sheet.dismiss();
-                                        Browser.openUrl(context, "https://t.me/BotFather?start=deletebot");
+                                        Browser.openUrl(context, "https://rudy.chat/BotFather?start=deletebot");
                                     },
                                     resourcesProvider
                                 )

@@ -209,13 +209,13 @@ public class Browser {
         if (link.startsWith("@")) {
             return link.substring(1);
         }
-        if (link.startsWith("t.me/")) {
+        if (link.startsWith("rudy.chat/")) {
             return link.substring(5);
         }
-        if (link.startsWith("http://t.me/")) {
+        if (link.startsWith("http://rudy.chat/")) {
             return link.substring(12);
         }
-        if (link.startsWith("https://t.me/")) {
+        if (link.startsWith("https://rudy.chat/")) {
             return link.substring(13);
         }
         Matcher prefixMatcher = LaunchActivity.PREFIX_T_ME_PATTERN.matcher(link);
@@ -228,14 +228,14 @@ public class Browser {
     public static boolean urlMustNotHaveConfirmation(String url) {
         return (
             isTelegraphUrl(url, false, true) ||
-            url.matches("^(https://)?t\\.me/iv\\??(/.*|$)") || // t.me/iv?
-            url.matches("^(https://)?telegram\\.org/(blog|tour)(/.*|$)") || // telegram.org/blog, telegram.org/tour
+            url.matches("^(https://)?rudy\\.chat/iv\\??(/.*|$)") || // rudy.chat/iv?
+            url.matches("^(https://)?rudy\\.chat/(blog|tour)(/.*|$)") || // rudy.chat/blog, rudy.chat/tour
             url.matches("^(https://)?fragment\\.com(/.*|$)") // fragment.com
         );
     }
 
     public static boolean isGetPremiumUrl(String url) {
-        return url != null && url.matches("(?i)^(https?://)?(t\\.me|telegram\\.me|telegram\\.dog)/getpremium([/?#].*)?$");
+        return url != null && url.matches("(?i)^(https?://)?(rudy\\.chat)/getpremium([/?#].*)?$");
     }
 
     public static class Progress {
@@ -381,7 +381,7 @@ public class Browser {
         if (tryTelegraph) {
             try {
                 String host = AndroidUtilities.getHostAuthority(uri);
-                if (UserConfig.getInstance(UserConfig.selectedAccount).getCurrentUser() != null && (isTelegraphUrl(host, true) || "telegram.org".equalsIgnoreCase(host) && (uri.toString().toLowerCase().contains("telegram.org/faq") || uri.toString().toLowerCase().contains("telegram.org/privacy") || uri.toString().toLowerCase().contains("telegram.org/blog")))) {
+                if (UserConfig.getInstance(UserConfig.selectedAccount).getCurrentUser() != null && (isTelegraphUrl(host, true) || "rudy.chat".equalsIgnoreCase(host) && (uri.toString().toLowerCase().contains("rudy.chat/faq") || uri.toString().toLowerCase().contains("rudy.chat/privacy") || uri.toString().toLowerCase().contains("rudy.chat/blog")))) {
                     final AlertDialog[] progressDialog = new AlertDialog[] {
                         new AlertDialog(context, AlertDialog.ALERT_TYPE_SPINNER)
                     };
@@ -770,7 +770,7 @@ public class Browser {
 
         Matcher prefixMatcher = LaunchActivity.PREFIX_T_ME_PATTERN.matcher(host);
         if (prefixMatcher.find()) {
-            uri = Uri.parse("https://t.me/" + prefixMatcher.group(1) + (TextUtils.isEmpty(uri.getPath()) ? "" : "/" + uri.getPath()) + (TextUtils.isEmpty(uri.getQuery()) ? "" : "?" + uri.getQuery()));
+            uri = Uri.parse("https://rudy.chat/" + prefixMatcher.group(1) + (TextUtils.isEmpty(uri.getPath()) ? "" : "/" + uri.getPath()) + (TextUtils.isEmpty(uri.getQuery()) ? "" : "?" + uri.getQuery()));
 
             host = uri.getHost();
             host = host != null ? host.toLowerCase() : "";
@@ -789,7 +789,7 @@ public class Browser {
             return true;
         } else if ("tg".equals(uri.getScheme())) {
             return true;
-        } else if ("telegram.dog".equals(host)) {
+        } else if ("rudy.chat".equals(host)) {
             String path = uri.getPath();
             if (path != null && path.length() > 1) {
                 if (all) {
@@ -804,7 +804,7 @@ public class Browser {
                 }
                 return true;
             }
-        } else if ("telegram.me".equals(host) || "t.me".equals(host)) {
+        } else if ("rudy.chat".equals(host) || "rudy.chat".equals(host)) {
             String path = uri.getPath();
             if (path != null && path.length() > 1) {
                 if (all) {
@@ -819,10 +819,10 @@ public class Browser {
                 }
                 return true;
             }
-        } else if ("telegram.org".equals(host) && uri != null && uri.getPath() != null && uri.getPath().startsWith("/blog/")) {
+        } else if ("rudy.chat".equals(host) && uri != null && uri.getPath() != null && uri.getPath().startsWith("/blog/")) {
             return true;
         } else if (all) {
-            if (host.endsWith("telegram.org") || host.endsWith("telegra.ph") || host.endsWith("telesco.pe")) {
+            if (host.endsWith("rudy.chat") || host.endsWith("telegra.ph") || host.endsWith("telesco.pe")) {
                 return true;
             }
         }

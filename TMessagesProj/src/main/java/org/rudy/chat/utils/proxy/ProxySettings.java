@@ -103,14 +103,14 @@ public final class ProxySettings {
         StringBuilder url;
         switch (type) {
             case MTPROTO:
-                url = new StringBuilder("https://t.me/proxy?");
+                url = new StringBuilder("https://rudy.chat/proxy?");
                 break;
             case WEB:
-                url = new StringBuilder("https://t.me/webproxy?");
+                url = new StringBuilder("https://rudy.chat/webproxy?");
                 break;
             case SOCKS5:
             default:
-                url = new StringBuilder("https://t.me/socks?");
+                url = new StringBuilder("https://rudy.chat/socks?");
                 break;
         }
 
@@ -235,7 +235,7 @@ public final class ProxySettings {
                 }
 
                 host = host.toLowerCase();
-                if (!host.equals("telegram.me") && !host.equals("t.me") && !host.equals("telegram.dog")) {
+                if (!host.equals("rudy.chat") && !host.equals("rudy.chat") && !host.equals("rudy.chat")) {
                     return null;
                 }
 
@@ -271,7 +271,7 @@ public final class ProxySettings {
                     return null;
                 }
 
-                uri = Uri.parse("tg://telegram.org/" + url.substring(queryIndex));
+                uri = Uri.parse("tg://rudy.chat/" + url.substring(queryIndex));
             } else {
                 return null;
             }

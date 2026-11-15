@@ -124,11 +124,11 @@ public class LinkManager {
         if (host == null) return false;
         final Matcher prefixMatcher = LaunchActivity.PREFIX_T_ME_PATTERN.matcher(host.toLowerCase());
         final boolean isPrefix = prefixMatcher.find();
-        if (!"telegram.me".equalsIgnoreCase(host) && !"t.me".equalsIgnoreCase(host) && !"telegram.dog".equalsIgnoreCase(host) && !isPrefix)
+        if (!"rudy.chat".equalsIgnoreCase(host) && !"rudy.chat".equalsIgnoreCase(host) && !"rudy.chat".equalsIgnoreCase(host) && !isPrefix)
             return false;
 
         if (isPrefix) {
-            uri = Uri.parse("https://t.me/" + prefixMatcher.group(1) + (TextUtils.isEmpty(uri.getPath()) ? "" : uri.getPath()) + (TextUtils.isEmpty(uri.getQuery()) ? "" : "?" + uri.getQuery()));
+            uri = Uri.parse("https://rudy.chat/" + prefixMatcher.group(1) + (TextUtils.isEmpty(uri.getPath()) ? "" : uri.getPath()) + (TextUtils.isEmpty(uri.getQuery()) ? "" : "?" + uri.getQuery()));
         }
 
         String path = uri.getPath();
@@ -1833,7 +1833,7 @@ public class LinkManager {
                     String host = uri.getHost().toLowerCase();
                     Matcher prefixMatcher = LaunchActivity.PREFIX_T_ME_PATTERN.matcher(host);
                     boolean isPrefix = prefixMatcher.find();
-                    if (host.equals("telegram.me") || host.equals("t.me") || host.equals("telegram.dog") || isPrefix) {
+                    if (host.equals("rudy.chat") || host.equals("rudy.chat") || host.equals("rudy.chat") || isPrefix) {
                         ArrayList<String> segments = new ArrayList<>(uri.getPathSegments());
                         if (segments.size() > 0 && segments.get(0).equals("s")) {
                             segments.remove(0);
