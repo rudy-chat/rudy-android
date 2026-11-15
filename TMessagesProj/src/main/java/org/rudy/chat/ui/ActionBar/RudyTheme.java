@@ -24,15 +24,15 @@ public final class RudyTheme {
 
     // Saved ids: never renumber or reuse. Telegram lists the home accent (index 0) first, then the others by
     // descending id, so the array order below is the order shown in Settings.
-    public static final int[] ACCENT_IDS = {0, 18, 17, 16, 15, 14, 13, 12};
+    public static final int[] ACCENT_IDS = {0, 18, 17, 16, 15, 14, 13, 12, 11};
 
-    //                                          Black       Pink        Purple      Red         Ocean       Mint        Amber       Graphite
-    public static final int[] LIGHT_ACCENTS = {INK,        0xFFBF4277, 0xFF7450C4, 0xFFC8453F, 0xFF2D6FB8, 0xFF187A5E, 0xFF9C6A17, 0xFF55555C};
+    //                                          Black       Pink        Purple      Red         Ocean       Mint        Amber       Graphite    Maroon
+    public static final int[] LIGHT_ACCENTS = {INK,        0xFFBF4277, 0xFF7450C4, 0xFFC8453F, 0xFF2D6FB8, 0xFF187A5E, 0xFF9C6A17, 0xFF55555C, 0xFF800000};
 
-    //                                          White       Pink        Purple      Red         Ocean       Mint        Amber       Graphite
-    public static final int[] DARK_ACCENTS  = {0xFFEDEDF0, 0xFFEC7FA9, 0xFFAC93EC, 0xFFEE8079, 0xFF73A9EA, 0xFF55C7A3, 0xFFE2B35F, 0xFFAEAEB5};
+    //                                          White       Pink        Purple      Red         Ocean       Mint        Amber       Graphite    Maroon
+    public static final int[] DARK_ACCENTS  = {0xFFEDEDF0, 0xFFEC7FA9, 0xFFAC93EC, 0xFFEE8079, 0xFF73A9EA, 0xFF55C7A3, 0xFFE2B35F, 0xFFAEAEB5, 0xFFD27373};
     /** Your own message bubbles on Dark and Black: graphite for White, deep calm tones for the colors. */
-    public static final int[] DARK_BUBBLES  = {0xFF3A3A3F, 0xFF8E3560, 0xFF56419A, 0xFF953834, 0xFF285A93, 0xFF1A6A53, 0xFF7E5B17, 0xFF46464C};
+    public static final int[] DARK_BUBBLES  = {0xFF3A3A3F, 0xFF8E3560, 0xFF56419A, 0xFF953834, 0xFF285A93, 0xFF1A6A53, 0xFF7E5B17, 0xFF46464C, 0xFF6E1A1A};
 
     // default chat background of the light theme (rudy.chat: #e9e9e5 -> #d9d9d4)
     public static final int[] DAY_WALLPAPER = {0xffe9e9e5, 0xffdcdcd7, 0xffe4e4e0, 0xffd9d9d4};

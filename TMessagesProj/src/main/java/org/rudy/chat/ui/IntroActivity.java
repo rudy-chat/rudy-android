@@ -792,16 +792,7 @@ public class IntroActivity extends BaseFragment implements NotificationCenter.No
             loadTexture(R.drawable.intro_powerful_star, 18);
             loadTexture(R.drawable.intro_private_door, 19);
             loadTexture(R.drawable.intro_private_screw, 20);
-            loadTexture(R.drawable.intro_tg_plane, 21);
-            loadTexture(v -> {
-                Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-                paint.setColor(ThemeColors.TELEGRAM_COLOR); // It's logo color, it should not be colored by the theme
-                int size = dp(ICON_HEIGHT_DP);
-                Bitmap bm = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
-                Canvas c = new Canvas(bm);
-                c.drawCircle(size / 2f, size / 2f, size / 2f, paint);
-                return bm;
-            }, 22);
+            loadLogoTextures(false);
             loadTexture(telegramMaskProvider, 23);
 
             updateTelegramTextures();
@@ -901,6 +892,23 @@ public class IntroActivity extends BaseFragment implements NotificationCenter.No
             bm.recycle();
         }
 
+        // Rudy: the intro logo circle takes the theme's logo (accent) color; the mark on it is white or ink,
+        // whichever reads better on that color.
+        private void loadLogoTextures(boolean rebind) {
+            final int logoColor = Theme.getColor(Theme.key_telegram_color_dialogsLogo) | 0xff000000;
+            final int markColor = AndroidUtilities.computePerceivedBrightness(logoColor) > 0.6f ? 0xff111113 : 0xffffffff;
+            loadTexture(R.drawable.intro_tg_plane, 21, markColor, rebind);
+            loadTexture(v -> {
+                Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+                paint.setColor(logoColor);
+                int size = dp(ICON_HEIGHT_DP);
+                Bitmap bm = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
+                Canvas c = new Canvas(bm);
+                c.drawCircle(size / 2f, size / 2f, size / 2f, paint);
+                return bm;
+            }, 22, rebind);
+        }
+
         private void loadTexture(int resId, int index) {
             loadTexture(resId, index, 0, false);
         }
@@ -979,6 +987,7 @@ public class IntroActivity extends BaseFragment implements NotificationCenter.No
                     eglThread.updatePowerfulTextures();
 
                     eglThread.loadTexture(eglThread.telegramMaskProvider, 23, true);
+                    eglThread.loadLogoTextures(true);
                     eglThread.updateTelegramTextures();
 
                     Intro.setBackgroundColor(Theme.getColor(Theme.key_windowBackgroundWhite));
@@ -1075,6 +1084,7 @@ public class IntroActivity extends BaseFragment implements NotificationCenter.No
                 eglThread.updatePowerfulTextures();
 
                 eglThread.loadTexture(eglThread.telegramMaskProvider, 23, true);
+                eglThread.loadLogoTextures(true);
                 eglThread.updateTelegramTextures();
 
                 Intro.setBackgroundColor(color);
