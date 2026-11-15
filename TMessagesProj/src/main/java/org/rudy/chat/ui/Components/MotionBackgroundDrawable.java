@@ -1,6 +1,5 @@
 package org.rudy.chat.ui.Components;
 
-import org.rudy.chat.ui.ActionBar.RudyTheme;
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
 import android.graphics.BlendMode;
@@ -314,7 +313,6 @@ public class MotionBackgroundDrawable extends Drawable {
     }
 
     public void setColors(int c1, int c2, int c3, int c4, Bitmap bitmap) {
-        c1 = RudyTheme.mono(c1); c2 = RudyTheme.mono(c2); c3 = RudyTheme.mono(c3); c4 = RudyTheme.mono(c4);
         colors[0] = c1;
         colors[1] = c2;
         colors[2] = c3;
@@ -323,8 +321,6 @@ public class MotionBackgroundDrawable extends Drawable {
     }
 
     public void setColors(int c1, int c2, int c3, int c4, int rotation, boolean invalidate) {
-        // Rudy: gradient backgrounds are always monochrome
-        c1 = RudyTheme.mono(c1); c2 = RudyTheme.mono(c2); c3 = RudyTheme.mono(c3); c4 = RudyTheme.mono(c4);
         if (isPreview && c3 == 0 && c4 == 0) {
             gradientDrawable = new GradientDrawable(BackgroundGradientDrawable.getGradientOrientation(rotation), new int[]{c1, c2});
         } else {

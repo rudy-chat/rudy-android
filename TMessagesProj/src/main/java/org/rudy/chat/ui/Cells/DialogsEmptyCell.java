@@ -180,7 +180,7 @@ public class DialogsEmptyCell extends LinearLayout {
                     imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
                     imageView.setImageResource(R.drawable.rudy_mascot);
                     imageView.setColorFilter(new android.graphics.PorterDuffColorFilter(
-                            Theme.getColor(Theme.key_windowBackgroundWhiteBlackText), android.graphics.PorterDuff.Mode.SRC_IN));
+                            Theme.getColor(Theme.key_telegram_color_dialogsLogo), android.graphics.PorterDuff.Mode.SRC_IN));
                 } else {
                     imageView.clearColorFilter();
                     imageView.setScaleType(ImageView.ScaleType.CENTER);
