@@ -152,6 +152,12 @@ android {
 
         multiDexEnabled true
 
+        if (project.hasProperty('rudyAbis')) {
+            ndk {
+                abiFilters(*project.property('rudyAbis').split(','))
+            }
+        }
+
         externalNativeBuild {
             cmake {
                 version '3.22.1'

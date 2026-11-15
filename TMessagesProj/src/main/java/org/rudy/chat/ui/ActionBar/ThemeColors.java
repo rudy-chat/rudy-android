@@ -11,8 +11,8 @@ import java.util.HashMap;
 
 public class ThemeColors {
 
-    public static final int TELEGRAM_COLOR = 0xFF229AF0;        // -14509328
-    public static final int TELEGRAM_COLOR_TEXT = 0xFF298ACF;   // -14054705
+    public static final int TELEGRAM_COLOR = 0xFF111113;        // Rudy ink (was Telegram blue 0xFF229AF0)
+    public static final int TELEGRAM_COLOR_TEXT = 0xFF111113;   // Rudy ink (was 0xFF298ACF)
     public static final int DEFAULT_BLACK_TEXT = 0xFF1A1D21;   // -15065823
 
     private static SparseArray<String> colorKeysMap;

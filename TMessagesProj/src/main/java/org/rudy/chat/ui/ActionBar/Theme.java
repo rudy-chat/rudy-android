@@ -3595,6 +3595,7 @@ public class Theme {
 
     static {
         defaultColors = ThemeColors.createDefaultColors();
+        RudyTheme.apply(defaultColors, false);
 
         fallbackKeys.put(key_iv_background, key_windowBackgroundWhite);
         fallbackKeys.put(key_iv_backgroundGray, key_windowBackgroundGray);
@@ -6177,6 +6178,7 @@ public class Theme {
         }
         applyCalculatedTableColors(currentColorsNoAccent, colors, currentTheme.isDark());
         applyCalculatedArticleCodeColors(currentColorsNoAccent, colors, currentTheme.isDark());
+        RudyTheme.apply(colors, currentTheme.isDark());
         shouldDrawGradientIcons = gradientIcons;
         currentColors = colors;
         if (!messages) {
@@ -9830,12 +9832,13 @@ public class Theme {
     }
 
     public static Drawable createDefaultWallpaper(int w, int h) {
-        MotionBackgroundDrawable motionBackgroundDrawable = new MotionBackgroundDrawable(0xffdbddbb, 0xff6ba587, 0xffd5d88d, 0xff88b884, w != 0);
+        final int[] wp = RudyTheme.DAY_WALLPAPER;
+        MotionBackgroundDrawable motionBackgroundDrawable = new MotionBackgroundDrawable(wp[0], wp[1], wp[2], wp[3], w != 0);
         if (w <= 0 || h <= 0) {
             w = Math.min(AndroidUtilities.displaySize.x, AndroidUtilities.displaySize.y);
             h = Math.max(AndroidUtilities.displaySize.x, AndroidUtilities.displaySize.y);
         }
-        motionBackgroundDrawable.setPatternBitmap(34, SvgHelper.getBitmap(R.raw.default_pattern, w, h, Color.BLACK, 1f, SvgHelper.ScaleMode.ByWidth));
+        motionBackgroundDrawable.setPatternBitmap(14, SvgHelper.getBitmap(R.raw.default_pattern, w, h, Color.BLACK, 1f, SvgHelper.ScaleMode.ByWidth));
         motionBackgroundDrawable.setPatternColorFilter(motionBackgroundDrawable.getPatternColor());
         return motionBackgroundDrawable;
     }

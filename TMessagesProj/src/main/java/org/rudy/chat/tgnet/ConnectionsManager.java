@@ -898,6 +898,10 @@ public class ConnectionsManager extends BaseController {
     }
 
     public static void onRequestNewServerIpAndPort(final int second, final int currentAccount) {
+        if (!BuildVars.FETCH_BACKUP_SERVERS) {
+            // Rudy: backup addresses come from Telegram's DNS/Firebase config; never ask for them.
+            return;
+        }
         Utilities.globalQueue.postRunnable(() -> {
             boolean networkOnline = ApplicationLoader.isNetworkOnline();
             Utilities.stageQueue.postRunnable(() -> {

@@ -2717,7 +2717,7 @@ JNIEXPORT void Java_org_rudy_chat_messenger_Intro_onSurfaceCreated(JNIEnv *env, 
 
     setup_shaders();
 
-    vec4 start_button_col = {44 / 255.0f, 165 / 255.0f, 224 / 255.0f, 1.0f};
+    vec4 start_button_col = {17 / 255.0f, 17 / 255.0f, 19 / 255.0f, 1.0f}; // Rudy ink
     start_button = create_rounded_rectangle(CSizeMake(172, 44), 2, 3, start_button_col);
     start_button.params.anchor.y = -22;
 
@@ -2740,7 +2740,7 @@ JNIEXPORT void Java_org_rudy_chat_messenger_Intro_onSurfaceCreated(JNIEnv *env, 
     int32_t ang = 180;
     spiral = create_segmented_square(r1, D2R(35 + 1), D2R(35 + 1 - 10 + ang), fast_spiral_texture);
 
-    vec4 free_bg_color = {246 / 255.0f, 73 / 255.0f, 55 / 255.0f, 1};
+    vec4 free_bg_color = {106 / 255.0f, 106 / 255.0f, 111 / 255.0f, 1}; // Rudy graphite
     free_bg = create_rectangle(CSizeMake(160 * 2, 160 * 2), free_bg_color);
 
     free_knot1 = create_textured_rectangle(CSizeMake(138 / 3, 138 / 3), free_knot_up_texture);
@@ -2797,7 +2797,7 @@ JNIEXPORT void Java_org_rudy_chat_messenger_Intro_onSurfaceCreated(JNIEnv *env, 
 
     infinity = create_infinity(11.7, .0, 32, white_color);
 
-    vec4 powerful_bg_color = {47 / 255.f, 90 / 255.f, 131 / 255.f, 1};
+    vec4 powerful_bg_color = {43 / 255.f, 43 / 255.f, 47 / 255.f, 1}; // Rudy
     powerful_bg = create_rectangle(CSizeMake(200, 200), powerful_bg_color);
     powerful_mask = create_textured_rectangle(CSizeMake(200, 200), powerful_mask_texture);
 
@@ -2831,7 +2831,7 @@ JNIEXPORT void Java_org_rudy_chat_messenger_Intro_onSurfaceCreated(JNIEnv *env, 
     cloud_cover = create_rectangle(CSizeMake(240, 100), background_color);
     cloud_cover.params.anchor.y = -50;
 
-    vec4 cloud_color = {42 / 255.0f, 180 / 255.0f, 247 / 255.0f, 1};
+    vec4 cloud_color = {17 / 255.0f, 17 / 255.0f, 19 / 255.0f, 1}; // Rudy ink
     cloud_bg = create_rectangle(CSizeMake(160 * 2, 160 * 2), cloud_color);
     surfaceCreated = 1;
 }

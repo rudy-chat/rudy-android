@@ -174,8 +174,19 @@ public class DialogsEmptyCell extends LinearLayout {
                 }
             }
             if (prevIcon != icon) {
-                imageView.setAnimation(icon, 100, 100);
-                imageView.playAnimation();
+                if (icon == R.raw.utyan_newborn) {
+                    // Rudy: the suited cat instead of the duck sticker
+                    imageView.clearAnimationDrawable();
+                    imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                    imageView.setImageResource(R.drawable.rudy_mascot);
+                    imageView.setColorFilter(new android.graphics.PorterDuffColorFilter(
+                            Theme.getColor(Theme.key_windowBackgroundWhiteBlackText), android.graphics.PorterDuff.Mode.SRC_IN));
+                } else {
+                    imageView.clearColorFilter();
+                    imageView.setScaleType(ImageView.ScaleType.CENTER);
+                    imageView.setAnimation(icon, 100, 100);
+                    imageView.playAnimation();
+                }
                 prevIcon = icon;
             }
         } else {
