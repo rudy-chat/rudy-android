@@ -208,11 +208,11 @@ public class SettingsActivity extends BaseFragment implements NotificationCenter
             observersGroup = null;
         }
 
-        observersGroup = NotificationCenter.getGlobalInstance()
+        observersGroup = getNotificationCenter()
             .createObserversGroup(this)
             .add(NotificationCenter.updateInterfaces)
-            .add(NotificationCenter.starBalanceUpdated)
-            .add(NotificationCenter.newSuggestionsAvailable);
+            .addGlobal(NotificationCenter.starBalanceUpdated)
+            .addGlobal(NotificationCenter.newSuggestionsAvailable);
 
         if (arguments != null) {
             hasMainTabs = arguments.getBoolean("hasMainTabs", false);
