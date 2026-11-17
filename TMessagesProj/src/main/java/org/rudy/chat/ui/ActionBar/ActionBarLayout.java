@@ -3208,6 +3208,7 @@ public class ActionBarLayout extends FrameLayout implements INavigationLayout, F
                             // used to leave everything it drives (action bar, bottom bar, dialog name paints) frozen
                             // at the old theme's colors while the rest of the screen used the new one. Finish on the
                             // new theme's colors instead.
+                            android.util.Log.i("RudyTheme", "recolor animation cancelled at " + themeAnimationValue);
                             setThemeAnimationValue(1.0f);
                             themeAnimatorDescriptions.clear();
                             animateStartColors.clear();

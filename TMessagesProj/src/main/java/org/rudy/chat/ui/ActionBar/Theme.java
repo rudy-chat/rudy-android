@@ -6150,6 +6150,22 @@ public class Theme {
         applyReadableOnAccentColors(colors);
         shouldDrawGradientIcons = gradientIcons;
         currentColors = colors;
+        // Rudy: one line per theme apply, always on, to diagnose theme state on real devices:
+        //   adb logcat -s RudyTheme
+        try {
+            android.util.Log.i("RudyTheme", "apply theme=" + currentTheme.getKey()
+                    + " dark=" + currentTheme.isDark()
+                    + " accentId=" + currentTheme.currentAccentId
+                    + " accent=" + (accent != null ? Integer.toHexString(accent.accentColor) : "null")
+                    + " base=" + Integer.toHexString(currentTheme.accentBaseColor)
+                    + " accents=" + (currentTheme.themeAccents != null ? currentTheme.themeAccents.size() : -1)
+                    + " actionBar=" + Integer.toHexString(colors.get(key_actionBarDefault, defaultColors[key_actionBarDefault]))
+                    + " button=" + Integer.toHexString(colors.get(key_featuredStickers_addButton, defaultColors[key_featuredStickers_addButton]))
+                    + " name=" + Integer.toHexString(colors.get(key_chats_name, defaultColors[key_chats_name]))
+                    + " autoNight=" + selectedAutoNightType
+                    + " thread=" + Thread.currentThread().getName());
+        } catch (Throwable ignore) {
+        }
         if (!messages) {
             boolean async = !(LaunchActivity.getLastFragment() instanceof ChatActivity);
             reloadWallpaper(async);
