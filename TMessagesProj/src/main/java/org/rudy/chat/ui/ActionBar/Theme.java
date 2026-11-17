@@ -7346,7 +7346,11 @@ public class Theme {
         saveOtherThemes(true);
     }
 
-    public static File getAssetFile(String assetName) {
+    // Rudy: synchronized, and the copy is written to a temporary file that is renamed into place. Theme files are
+    // read from several threads (startup, background theme parsing, theme previews); a reader that opened the file
+    // while another thread was rewriting it (first launch, or an update that changed the file) got a half-written
+    // file, and every color missing from it fell back to Telegram's blue defaults.
+    public static synchronized File getAssetFile(String assetName) {
         File file = new File(ApplicationLoader.getFilesDirFixed(), assetName);
         long size;
         try {
@@ -7358,10 +7362,23 @@ public class Theme {
             FileLog.e(e);
         }
         if (!file.exists() || size != 0 && file.length() != size) {
+            File tmp = new File(file.getParentFile(), assetName + ".tmp");
             try (InputStream in = ApplicationLoader.applicationContext.getAssets().open(assetName)) {
-                AndroidUtilities.copyFile(in, file);
+                AndroidUtilities.copyFile(in, tmp);
+                if (!tmp.renameTo(file)) {
+                    file.delete();
+                    if (!tmp.renameTo(file)) {
+                        try (InputStream again = ApplicationLoader.applicationContext.getAssets().open(assetName)) {
+                            AndroidUtilities.copyFile(again, file);
+                        }
+                    }
+                }
             } catch (Exception e) {
                 FileLog.e(e);
+            } finally {
+                if (tmp.exists()) {
+                    tmp.delete();
+                }
             }
         }
         return file;
