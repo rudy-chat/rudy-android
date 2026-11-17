@@ -208,7 +208,7 @@ public class EmojiThemes {
             preferences.edit().putString("lastDarkCustomTheme", lastDarkCustomTheme).apply();
         } else {
             if (darkAccentId == -1) {
-                darkAccentId = Theme.getTheme(lastDayCustomTheme).lastAccentId;
+                darkAccentId = Theme.getTheme(lastDarkCustomTheme).lastAccentId;
             }
         }
 
@@ -375,6 +375,14 @@ public class EmojiThemes {
             if (themeInfo.themeAccentsMap != null) {
                 accent = themeInfo.themeAccentsMap.get(items.get(index).accentId);
             }
+            // Rudy: an accent id that is not one of Rudy's (Telegram's 99 / 9, a stale lastAccentId) used to give
+            // the theme file's raw colors here: dark header, Telegram-blue title. Use the theme's default accent.
+            if (accent == null && themeInfo.pathToFile == null && themeInfo.themeAccents != null && !themeInfo.themeAccents.isEmpty()) {
+                accent = themeInfo.themeAccentsMap.get(0);
+                if (accent == null) {
+                    accent = themeInfo.themeAccents.get(0);
+                }
+            }
         }
 
         if (themeInfo == null) {
@@ -453,6 +461,14 @@ public class EmojiThemes {
         } else {
             if (themeInfo.themeAccentsMap != null) {
                 accent = themeInfo.themeAccentsMap.get(items.get(index).accentId);
+            }
+            // Rudy: an accent id that is not one of Rudy's (Telegram's 99 / 9, a stale lastAccentId) used to give
+            // the theme file's raw colors here: dark header, Telegram-blue title. Use the theme's default accent.
+            if (accent == null && themeInfo.pathToFile == null && themeInfo.themeAccents != null && !themeInfo.themeAccents.isEmpty()) {
+                accent = themeInfo.themeAccentsMap.get(0);
+                if (accent == null) {
+                    accent = themeInfo.themeAccents.get(0);
+                }
             }
         }
 
