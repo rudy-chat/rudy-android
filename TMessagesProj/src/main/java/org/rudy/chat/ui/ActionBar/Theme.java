@@ -4296,7 +4296,18 @@ public class Theme {
                 oldEditorNew.commit();
             }
 
-            selectedAutoNightType = preferences.getInt("selectedAutoNightType", Build.VERSION.SDK_INT >= 29 ? AUTO_NIGHT_TYPE_SYSTEM : AUTO_NIGHT_TYPE_NONE);
+            // Rudy: the theme the user picks is the theme they get. Following the system dark mode
+            // swapped day/night themes behind their back (picked theme "reverting" after restart,
+            // half-applied themes while a screen transition was running), and opened a dark app
+            // on first launch. Auto-night stays available in settings, but is off by default and
+            // switched off once for installs that inherited the old default.
+            if (!preferences.getBoolean("rudy_autonight_off_v1", false)) {
+                preferences.edit()
+                        .putInt("selectedAutoNightType", AUTO_NIGHT_TYPE_NONE)
+                        .putBoolean("rudy_autonight_off_v1", true)
+                        .commit();
+            }
+            selectedAutoNightType = preferences.getInt("selectedAutoNightType", AUTO_NIGHT_TYPE_NONE);
             autoNightScheduleByLocation = preferences.getBoolean("autoNightScheduleByLocation", false);
             autoNightBrighnessThreshold = preferences.getFloat("autoNightBrighnessThreshold", 0.25f);
             autoNightDayStartTime = preferences.getInt("autoNightDayStartTime", 22 * 60);
