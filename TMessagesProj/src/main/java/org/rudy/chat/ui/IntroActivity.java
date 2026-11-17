@@ -428,6 +428,7 @@ public class IntroActivity extends BaseFragment implements NotificationCenter.No
         fragmentView = scrollView;
 
         NotificationCenter.getGlobalInstance().addWeakObserver(this, NotificationCenter.suggestedLangpack);
+        NotificationCenter.getGlobalInstance().addWeakObserver(this, NotificationCenter.didSetNewTheme);
         NotificationCenter.getInstance(currentAccount).addWeakObserver(this, NotificationCenter.configLoaded);
         ConnectionsManager.getInstance(currentAccount).updateDcSettings();
         LocaleController.getInstance().loadRemoteLanguages(currentAccount);
@@ -452,6 +453,7 @@ public class IntroActivity extends BaseFragment implements NotificationCenter.No
                 lastPage = 0;
             }
             justCreated = false;
+            updateColors(true);
         }
         AndroidUtilities.lockOrientation(getParentActivity(), ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
@@ -473,6 +475,7 @@ public class IntroActivity extends BaseFragment implements NotificationCenter.No
         destroyed = true;
         AndroidUtilities.cancelRunOnUIThread(reloadGlTexturesRunnable);
         NotificationCenter.getGlobalInstance().removeObserver(this, NotificationCenter.suggestedLangpack);
+        NotificationCenter.getGlobalInstance().removeObserver(this, NotificationCenter.didSetNewTheme);
         NotificationCenter.getInstance(currentAccount).removeObserver(this, NotificationCenter.configLoaded);
         MessagesController.getGlobalMainSettings().edit().putLong("intro_crashed_time", 0).apply();
     }
@@ -540,6 +543,12 @@ public class IntroActivity extends BaseFragment implements NotificationCenter.No
     public void didReceivedNotification(int id, int account, Object... args) {
         if (id == NotificationCenter.suggestedLangpack || id == NotificationCenter.configLoaded) {
             checkContinueText();
+        } else if (id == NotificationCenter.didSetNewTheme) {
+            // Rudy: a theme applied after this screen was built (startup checks, account restore) used to leave
+            // the Telegram-blue colors it was created with until the day/night toggle was tapped
+            if (fragmentView != null) {
+                updateColors(true);
+            }
         }
     }
 
@@ -892,12 +901,13 @@ public class IntroActivity extends BaseFragment implements NotificationCenter.No
             bm.recycle();
         }
 
-        // Rudy: the intro logo circle takes the theme's logo (accent) color; the mark on it is white or ink,
-        // whichever reads better on that color.
+        // Rudy: the intro emblem is Rudy (the same line-art cat as the empty chat list) on a circle in the
+        // theme's logo color; the cat is drawn white or ink, whichever reads better on that circle.
+        // Telegram's paper plane (texture 21, animated in by the renderer) is left empty.
         private void loadLogoTextures(boolean rebind) {
             final int logoColor = Theme.getColor(Theme.key_telegram_color_dialogsLogo) | 0xff000000;
             final int markColor = AndroidUtilities.computePerceivedBrightness(logoColor) > 0.6f ? 0xff111113 : 0xffffffff;
-            loadTexture(R.drawable.intro_tg_plane, 21, markColor, rebind);
+            loadTexture(v -> Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888), 21, rebind);
             loadTexture(v -> {
                 Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
                 paint.setColor(logoColor);
@@ -905,6 +915,13 @@ public class IntroActivity extends BaseFragment implements NotificationCenter.No
                 Bitmap bm = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
                 Canvas c = new Canvas(bm);
                 c.drawCircle(size / 2f, size / 2f, size / 2f, paint);
+                Drawable mascot = ApplicationLoader.applicationContext.getResources().getDrawable(R.drawable.rudy_mascot).mutate();
+                mascot.setColorFilter(new PorterDuffColorFilter(markColor, PorterDuff.Mode.SRC_IN));
+                int mascotSize = (int) (size * 0.62f);
+                int left = (size - mascotSize) / 2;
+                int top = (size - mascotSize) / 2 + (int) (size * 0.02f);
+                mascot.setBounds(left, top, left + mascotSize, top + mascotSize);
+                mascot.draw(c);
                 return bm;
             }, 22, rebind);
         }
