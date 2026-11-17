@@ -6198,6 +6198,11 @@ public class Theme {
             {key_checkboxSquareCheck, key_checkboxSquareBackground},
             {key_dialogRoundCheckBoxCheck, key_dialogRoundCheckBox},
             {key_profile_actionIcon, key_profile_actionBackground},
+            // file / voice / music circles in messages: play, download, cancel and the progress ring
+            {key_chat_inMediaIcon, key_chat_inLoader},
+            {key_chat_inMediaIconSelected, key_chat_inLoaderSelected},
+            {key_chat_outMediaIcon, key_chat_outLoader},
+            {key_chat_outMediaIconSelected, key_chat_outLoaderSelected},
         };
         static final int[] WHITE_ICON_BACKGROUNDS = {
                 key_avatar_backgroundSaved, key_avatar_background2Saved,
