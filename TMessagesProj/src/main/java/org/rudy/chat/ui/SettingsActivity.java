@@ -432,6 +432,8 @@ public class SettingsActivity extends BaseFragment implements NotificationCenter
         cameraImageView = new ImageView(context);
         cameraImageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
         cameraImageView.setImageResource(R.drawable.filled_premium_camera);
+        // Rudy: the icon follows the accent's readable text color (black on light accents, white on dark ones)
+        ThemeBind.colorFilter(cameraImageView, Theme.key_featuredStickers_buttonText, getResourceProvider(), PorterDuff.Mode.SRC_IN);
         cameraBackground.addView(cameraImageView, LayoutHelper.createFrame(22, 22, Gravity.CENTER));
         cameraButton.addView(cameraBackground, LayoutHelper.createFrame(30, 30));
         // over the avatar, so it scales and hides with it; its touches go to the place of the avatar in the list

@@ -6199,6 +6199,10 @@ public class Theme {
             {key_dialogRoundCheckBoxCheck, key_dialogRoundCheckBox},
             {key_profile_actionIcon, key_profile_actionBackground},
         };
+        static final int[] WHITE_ICON_BACKGROUNDS = {
+                key_avatar_backgroundSaved, key_avatar_background2Saved,
+                key_avatar_backgroundArchived, key_avatar_backgroundArchivedHidden,
+        };
     }
 
     private static void applyReadableOnAccentColors(SparseIntArray colors) {
@@ -6215,6 +6219,20 @@ public class Theme {
             final double onWhite = contrastRatio(0xffffffff, background);
             final double onInk = contrastRatio(RudyTheme.INK, background);
             colors.put(pair[0], onWhite >= onInk ? 0xffffffff : RudyTheme.INK);
+        }
+        // Saved Messages, Archive and similar themed avatars draw a white icon that is never tinted: a light accent
+        // (white in the dark theme) left a white icon on a near-white circle. Darken those backgrounds, keeping the
+        // hue, until the white icon reads.
+        for (int key : OnAccentPairs.WHITE_ICON_BACKGROUNDS) {
+            final int background = getColorFromTable(colors, key, null);
+            if (Color.alpha(background) < 0x80 || contrastRatio(0xffffffff, background | 0xff000000) >= 3.0) {
+                continue;
+            }
+            int darker = background;
+            for (int i = 0; i < 20 && contrastRatio(0xffffffff, darker | 0xff000000) < 3.0; i++) {
+                darker = ColorUtils.blendARGB(darker, 0xff000000, 0.1f);
+            }
+            colors.put(key, darker);
         }
     }
 
