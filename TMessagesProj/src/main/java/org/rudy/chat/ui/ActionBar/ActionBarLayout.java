@@ -3204,6 +3204,11 @@ public class ActionBarLayout extends FrameLayout implements INavigationLayout, F
                     @Override
                     public void onAnimationCancel(Animator animation) {
                         if (animation.equals(themeAnimatorSet)) {
+                            // Rudy: a cancelled recolor (another theme applied, or the screen changed while it ran)
+                            // used to leave everything it drives (action bar, bottom bar, dialog name paints) frozen
+                            // at the old theme's colors while the rest of the screen used the new one. Finish on the
+                            // new theme's colors instead.
+                            setThemeAnimationValue(1.0f);
                             themeAnimatorDescriptions.clear();
                             animateStartColors.clear();
                             animateEndColors.clear();
