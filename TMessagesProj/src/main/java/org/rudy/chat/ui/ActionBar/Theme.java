@@ -6183,7 +6183,11 @@ public class Theme {
      * become black or white, whichever reads better on that fill. Light accents (white, pastels) otherwise get
      * white-on-white badges in the dark theme.
      */
-    private static final int[][] ON_ACCENT_PAIRS = {
+    // In a holder class: Theme's static initializer applies the saved theme (and so calls
+    // applyReadableOnAccentColors) before a plain static field declared down here would be assigned. That null array
+    // aborted the first theme apply of every app start, leaving Telegram's default (blue) colors until the next apply.
+    private static final class OnAccentPairs {
+        static final int[][] ON_ACCENT_PAIRS = {
             {key_chats_unreadCounterText, key_chats_unreadCounter},
             {key_chats_actionIcon, key_chats_actionBackground},
             {key_featuredStickers_buttonText, key_featuredStickers_addButton},
@@ -6194,10 +6198,11 @@ public class Theme {
             {key_checkboxSquareCheck, key_checkboxSquareBackground},
             {key_dialogRoundCheckBoxCheck, key_dialogRoundCheckBox},
             {key_profile_actionIcon, key_profile_actionBackground},
-    };
+        };
+    }
 
     private static void applyReadableOnAccentColors(SparseIntArray colors) {
-        for (int[] pair : ON_ACCENT_PAIRS) {
+        for (int[] pair : OnAccentPairs.ON_ACCENT_PAIRS) {
             final int background = getColorFromTable(colors, pair[1], null);
             if (Color.alpha(background) < 0x80) {
                 continue;
