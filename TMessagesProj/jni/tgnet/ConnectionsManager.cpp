@@ -1837,8 +1837,14 @@ void ConnectionsManager::initDatacenters() {
     // Rudy: a single datacenter. The server's help.getConfig can add more at runtime.
     if (datacenters.find(2) == datacenters.end()) {
         Datacenter *datacenter = new Datacenter(instanceNum, 2);
-        datacenter->addAddressAndPort("172.20.1.110", 20443, 0, "");
+        datacenter->addAddressAndPort("95.38.58.3", 20443, 0, "");
         datacenters[2] = datacenter;
+    } else {
+        // Rudy: an install that already saved DC 2 keeps its keys but always uses the built-in address,
+        // so moving the server takes effect on update without clearing app data
+        std::vector<TcpAddress> addresses;
+        addresses.push_back(TcpAddress("95.38.58.3", 20443, 0, ""));
+        datacenters[2]->replaceAddresses(addresses, 0);
     }
 }
 
