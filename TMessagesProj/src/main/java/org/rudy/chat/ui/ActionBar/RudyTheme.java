@@ -37,18 +37,22 @@ public final class RudyTheme {
     // default chat background of the light theme (rudy.chat: #e9e9e5 -> #d9d9d4)
     public static final int[] DAY_WALLPAPER = {0xffe9e9e5, 0xffdcdcd7, 0xffe4e4e0, 0xffd9d9d4};
 
-    // avatars without a photo on the default (black / white) accent: no per-person colors, just ink or graphite
+    // avatars without a photo on Rudy's own themes: no per-person colors
     private static final int[] NEUTRAL_AVATAR_LIGHT = {0xFF2C2C30, INK};
-    private static final int[] NEUTRAL_AVATAR_DARK = {0xFF5A5A61, 0xFF46464C};
+    private static final int[] NEUTRAL_AVATAR_DARK = {0xFFE5E5E5, 0xFFE5E5E5};
 
     /**
-     * The top and bottom colors for avatars without a photo when the app runs one of Rudy's own themes on its default
-     * accent (black in Light, white in Dark and Black); null otherwise, so other accents and cloud themes keep
-     * Telegram's per-person colors.
+     * The top and bottom colors for avatars without a photo when the app runs one of Rudy's own themes (ink in Light,
+     * #e5e5e5 in Dark and Black); null for server themes, which keep Telegram's per-person colors.
      */
     public static int[] neutralAvatarColors() {
         final Theme.ThemeInfo theme = Theme.getActiveTheme();
-        if (theme == null || theme.assetName == null || !theme.assetName.startsWith("rudy_") || theme.currentAccentId != 0) {
+        if (theme == null || theme.assetName == null || !theme.assetName.startsWith("rudy_") || theme.info != null) {
+            return null;
+        }
+        // server themes (🌷, 🎄...) are stored as accents of Rudy's themes, with their server info on the accent
+        final Theme.ThemeAccent accent = theme.getAccent(false);
+        if (accent != null && accent.info != null) {
             return null;
         }
         return theme.isDark() ? NEUTRAL_AVATAR_DARK : NEUTRAL_AVATAR_LIGHT;

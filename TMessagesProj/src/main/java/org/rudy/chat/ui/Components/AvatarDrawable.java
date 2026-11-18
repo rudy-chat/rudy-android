@@ -624,7 +624,7 @@ public class AvatarDrawable extends Drawable {
         }
         namePaint.setColor(ColorUtils.setAlphaComponent(getThemedColor(Theme.key_avatar_text), alpha));
         Paint backgroundPaint = Theme.avatar_backgroundPaint;
-        // Rudy: on the default black / white accent, avatars without a photo are ink (light) or graphite (dark)
+        // Rudy: on Rudy's own themes, avatars without a photo are ink (light) or #e5e5e5 (dark)
         // instead of Telegram's per-person colors
         final int[] neutral = avatarType == AVATAR_TYPE_NORMAL ? org.rudy.chat.ui.ActionBar.RudyTheme.neutralAvatarColors() : null;
         if (neutral != null) {
@@ -635,7 +635,7 @@ public class AvatarDrawable extends Drawable {
             }
             backgroundPaint.setShader(gradient);
             backgroundPaint.setAlpha(alpha);
-            namePaint.setColor(ColorUtils.setAlphaComponent(0xffffffff, alpha));
+            namePaint.setColor(ColorUtils.setAlphaComponent(AndroidUtilities.computePerceivedBrightness(neutral[0]) > 0.6f ? 0xff111113 : 0xffffffff, alpha));
         } else if (hasAdvancedGradient && advancedGradient != null) {
             advancedGradient.setBounds(bounds.left, bounds.top, bounds.left + size, bounds.top + size);
             backgroundPaint = advancedGradient.paint;
